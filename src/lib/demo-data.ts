@@ -198,3 +198,35 @@ function owner(id: string) {
 export function getOwner(id: string) {
   return owner(id);
 }
+
+export const CLIENTS: Client[] = [];
+export const FINDINGS: Finding[] = [];
+export const COMMITMENTS: Commitment[] = [];
+
+export function getClient(slug: string) {
+  return CLIENTS.find((client) => client.slug === slug);
+}
+
+export function getBrightPathClient() {
+  return clientBySlug("brightpath");
+}
+
+export function clientBySlug(slug: string) {
+  const client = getClient(slug);
+  if (!client) throw new Error(`Unknown client ${slug}`);
+  return client;
+}
+
+export const STATE_LABEL: Record<ClientState, string> = {
+  "at-risk": "Might leave",
+  opportunity: "Might buy more",
+  "needs-attention": "Needs a nudge",
+  healthy: "Going well",
+};
+
+export const TYPE_LABEL: Record<FindingType, string> = {
+  risk: "Might leave",
+  opportunity: "Might buy more",
+  commitment: "You promised this",
+  renewal: "Renewal coming up",
+};
